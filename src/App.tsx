@@ -19,15 +19,15 @@ class App extends React.Component<{}, AppState> {
   }
 
   handleChange = (id: number) => {
-    this.setState(prevstate => {
-      const updatedTodos = prevstate.todos.map((todo, idx) => {
+    this.setState(prevState => {
+      let updated = prevState.todos.map(todo => {
         if (todo.id === id) {
           todo.done = !todo.done;
         }
         return todo;
       });
       return {
-        todos: updatedTodos
+        todos: updated
       };
     });
   };

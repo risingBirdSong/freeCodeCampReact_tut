@@ -17,11 +17,11 @@ class TodoComp extends React.Component<propsI, { done: boolean }> {
       <div>
         <h3>{this.props.task}</h3>
         <input
-          onChange={() => {
-            this.props.handleChange(this.props.id);
-          }}
           type="checkbox"
           checked={this.props.done}
+          onClick={() => {
+            this.props.handleChange(this.props.id);
+          }}
         />
       </div>
     );
