@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { TodoComp } from "./components/todoComp";
+import { todos } from "./data/todos";
+import { IncDecComp } from "./components/incDecComp";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super({});
+  }
+  render() {
+    let todosMapped = todos.map((todo, idx) => {
+      return <TodoComp done={todo.done} task={todo.task} />;
+    });
+    return (
+      <div>
+        {todosMapped};
+        <IncDecComp />
+      </div>
+    );
+  }
 }
 
 export default App;
