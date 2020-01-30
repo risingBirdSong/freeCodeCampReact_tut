@@ -1,8 +1,15 @@
 import React from "react";
-import { todoI, todos } from "../data/todos";
+import { todosData } from "../data/todos";
 
-class TodoComp extends React.Component<todoI, todoI> {
-  constructor({ props }: { props: todoI }) {
+interface propsI {
+  id: number;
+  done: boolean;
+  task: string;
+  handleChange: (id: number) => void;
+}
+
+class TodoComp extends React.Component<propsI, { done: boolean }> {
+  constructor({ props }: { props: propsI }) {
     super(props);
   }
   render() {
@@ -10,7 +17,9 @@ class TodoComp extends React.Component<todoI, todoI> {
       <div>
         <h3>{this.props.task}</h3>
         <input
-          onChange={() => console.log(`${this.props.task} was clicked`)}
+          onChange={() => {
+            this.props.handleChange(this.props.id);
+          }}
           type="checkbox"
           checked={this.props.done}
         />
