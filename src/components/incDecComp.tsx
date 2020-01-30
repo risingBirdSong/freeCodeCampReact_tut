@@ -1,10 +1,10 @@
 import React from "react";
 
-interface IncDecState {
+interface IncDecCompI {
   count: number;
 }
 
-class IncDecComp extends React.Component<{}, IncDecState> {
+class IncDecComp extends React.Component<{}, IncDecCompI> {
   constructor() {
     super({});
     this.state = {
@@ -21,9 +21,9 @@ class IncDecComp extends React.Component<{}, IncDecState> {
   };
 
   dec = () => {
-    this.setState(prevState => {
+    this.setState(previous => {
       return {
-        count: prevState.count - 1
+        count: previous.count - 1
       };
     });
   };
@@ -31,8 +31,8 @@ class IncDecComp extends React.Component<{}, IncDecState> {
   render() {
     return (
       <div>
-        <h1>counter!</h1>
-        <h2>{this.state.count}</h2>
+        <h1>Counter</h1>
+        <h1>{this.state.count}</h1>
         <button onClick={this.inc}>inc</button>
         <button onClick={this.dec}>dec</button>
       </div>
