@@ -11,55 +11,77 @@ import { Z_UNKNOWN } from "zlib";
 import { stringify } from "querystring";
 
 interface AppState {
+  hasSubmitted: boolean;
   firstName: string;
   lastName: string;
-}
-
-interface nameOptions {
-  firstName: string;
-  lastName: string;
+  age: number | string;
 }
 
 class App extends React.Component<any, AppState> {
   constructor() {
     super({});
     this.state = {
+      hasSubmitted: false,
       firstName: "",
-      lastName: ""
+      lastName: "",
+      age: 0
     };
   }
 
-  handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("name ->", event.target.name);
-    let { name, value } = event.target;
+  handler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name } = event.target as any;
+    const { value } = event.target;
     //@ts-ignore
     this.setState({
       [name]: value
     });
   };
 
+  submitter = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(this.state);
+    this.setState({
+      hasSubmitted: true
+    });
+  };
+
   render() {
+    let firstName, lastName, age;
+
+    if (this.state.hasSubmitted === false) {
+      firstName = "";
+      lastName = "";
+      age = "";
+    } else {
+      firstName = this.state.firstName;
+      lastName = this.state.lastName;
+      age = this.state.age;
+    }
+
     return (
       <div>
-        <form>
-          <input
-            value={this.state.firstName}
-            type="text"
-            name="firstName"
-            placeholder="type first name here"
-            onChange={this.handleInput}
-          />
+        <div>
+          <form onSubmit={this.submitter}>
+            firstname{" "}
+            <input type="text" name="firstName" onChange={this.handler} />
+            <hr />
+            lastname{" "}
+            <input type="text" name="lastName" onChange={this.handler} />
+            <hr />
+            age <input type="text" name="age" onChange={this.handler} />
+            <hr />
+            <button>submit info</button>
+          </form>
+        </div>
+
+        <div>
+          <h1>info entered</h1>
+          first name : <p>{firstName}</p>
           <hr />
-          <input
-            value={this.state.lastName}
-            type="text"
-            placeholder="type last name here"
-            name="lastName"
-            onChange={this.handleInput}
-          />
-        </form>
-        <p>first ->{this.state.firstName}</p>
-        <p>last ->{this.state.lastName}</p>
+          last name : <p>{lastName}</p>
+          <hr />
+          age : <p>{age}</p>
+        </div>
       </div>
     );
   }
