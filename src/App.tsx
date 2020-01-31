@@ -31,10 +31,10 @@ class App extends React.Component<any, AppState> {
 
   handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     console.log("name ->", event.target.name);
-    let name = event.target.name as any;
+    let { name, value } = event.target;
     //@ts-ignore
     this.setState({
-      [name]: event.target.value
+      [name]: value
     });
   };
 
@@ -43,6 +43,7 @@ class App extends React.Component<any, AppState> {
       <div>
         <form>
           <input
+            value={this.state.firstName}
             type="text"
             name="firstName"
             placeholder="type first name here"
@@ -50,6 +51,7 @@ class App extends React.Component<any, AppState> {
           />
           <hr />
           <input
+            value={this.state.lastName}
             type="text"
             placeholder="type last name here"
             name="lastName"
