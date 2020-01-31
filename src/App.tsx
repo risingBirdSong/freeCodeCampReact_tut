@@ -10,17 +10,31 @@ import { ConditionalRenderComp } from "./components/conditional";
 import { Z_UNKNOWN } from "zlib";
 import { stringify } from "querystring";
 
-class App extends React.Component<any, any> {
+interface AppState {
+  firstName: string;
+  lastName: string;
+}
+
+interface nameOptions {
+  firstName: string;
+  lastName: string;
+}
+
+class App extends React.Component<any, AppState> {
   constructor() {
     super({});
     this.state = {
-      userInput: ""
+      firstName: "",
+      lastName: ""
     };
   }
 
   handleInput = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("name ->", event.target.name);
+    let name = event.target.name as any;
+    //@ts-ignore
     this.setState({
-      userInput: event.target.value
+      [name]: event.target.value
     });
   };
 
@@ -30,11 +44,20 @@ class App extends React.Component<any, any> {
         <form>
           <input
             type="text"
-            placeholder="type here"
+            name="firstName"
+            placeholder="type first name here"
+            onChange={this.handleInput}
+          />
+          <hr />
+          <input
+            type="text"
+            placeholder="type last name here"
+            name="lastName"
             onChange={this.handleInput}
           />
         </form>
-        <p>{this.state.userInput}</p>
+        <p>first ->{this.state.firstName}</p>
+        <p>last ->{this.state.lastName}</p>
       </div>
     );
   }
